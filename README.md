@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Crypto Domains Marketplace
+
+![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/49170863-1e53-423d-8988-32efb5e90812)
+
+
+## About
+
+The Crypto Domains Marketplace is a decentralized application (DApp) built on the Ethereum blockchain. It allows users to buy, sell, and manage crypto domains using smart contracts. This project showcases the integration of blockchain technology into a marketplace for digital assets.
+
+## Technologies Used
+
+- Ethereum Blockchain
+- Solidity (Smart Contract Language)
+- Hardhat (Development Environment)
+- React.js (Frontend Framework)
+- Web3.js (Ethereum JavaScript Library)
+- Next.js (Frontend Framework)
+
+## Software Requirements
+
+Before you begin, ensure you have met the following requirements:
+- Node.js installed
+- npm (Node Package Manager) installed
+- MetaMask extension installed in your browser
+- A local Ethereum development environment (Hardhat) set up
 
 ## Getting Started
 
-First, run the development server:
+Follow these steps to set up and run the Crypto Domains Marketplace project locally:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/crypto-domains-marketplace.git
+cd crypto-domains-marketplace
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the Hardhat Node
+
+```bash
+npx hardhat node
+```
+
+### 4. Run Deployment Script
+
+```bash
+npx hardhat run ./scripts/deploy.js --network localhost
+```
+
+### 5. Start the Frontend
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Once you have completed the setup steps, you can access the Crypto Domains Marketplace by opening your browser and navigating to http://localhost:3000.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
