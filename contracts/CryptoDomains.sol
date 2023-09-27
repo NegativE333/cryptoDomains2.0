@@ -30,7 +30,7 @@ contract CryptoDomains is ERC721 {
         owner = msg.sender;
     }
 
-    function list(string memory _name, uint256 _cost) public onlyOwner {
+    function list(string memory _name, uint256 _cost) public {
         maxSupply++;
         domains[maxSupply] = Domain(_name, _cost, false, address(0), false);
     }
@@ -53,6 +53,44 @@ contract CryptoDomains is ERC721 {
 
     function getDomain(uint256 _id) public view returns (Domain memory) {
         return domains[_id];
+    }
+
+    function getDomainByName(string memory _domainName) public view returns (Domain memory) {
+        for (uint256 i = 1; i <= maxSupply; i++) {
+            if (keccak256(bytes(domains[i].name)) == keccak256(bytes(_domainName))) {
+                return domains[i]; // Return the domain with the matching name
+            }
+        }
+    
+        revert("Domain not found"); // Revert if the domain with the given name is not found
+    }
+
+    function getDomainIdByName(string memory _domainName) public view returns (uint256) {
+        for (uint256 i = 1; i <= maxSupply; i++) {
+            if (keccak256(bytes(domains[i].name)) == keccak256(bytes(_domainName))) {
+                return i; // Return the domain ID with the matching name
+            }
+        }
+
+        revert("Domain not found"); // Revert if the domain with the given name is not found
+    }
+
+    function isDomainListed(string memory _domainName) public view returns (bool) {
+        for (uint256 i = 1; i <= maxSupply; i++) {
+            if (keccak256(bytes(domains[i].name)) == keccak256(bytes(_domainName))) {
+                return true; // The domain is listed
+            }
+        }
+        return false; // The domain is not listed
+    }
+
+    function isDomainTaken(string memory _domainName) public view returns (bool) {
+        for (uint256 i = 1; i <= maxSupply; i++) {
+            if (keccak256(bytes(domains[i].name)) == keccak256(bytes(_domainName)) && domains[i].isOwned) {
+                    return true; // The domain is taken
+            }
+        }
+        return false; // The domain is not taken
     }
 
     function getBalance() public view returns (uint256) {

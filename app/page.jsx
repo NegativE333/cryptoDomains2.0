@@ -5,6 +5,8 @@ import { ethers } from 'ethers';
 import CryptoDomains from './abis/CryptoDomains.json';
 import config from './config.json';
 import { useEffect, useState } from 'react';
+
+//Component imports
 import Hero from '../components/hero';
 
 export default function Home() {
