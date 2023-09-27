@@ -30,7 +30,7 @@ const Navbar = () => {
     }, [account]);
 
     return (  
-        <div className={cn("fixed flex items-center p-2 h-16 w-full bg-black", pathName === '/' && 'bg-black', pathName === '/buy-domains' && 'bg-[#0b1c25]', pathName === '/list-domains' && 'bg-[#020e14]')}>
+        <div className={cn("fixed flex items-center p-2 h-16 w-full bg-black", pathName === '/' && 'bg-black', pathName === '/buy-domains' && 'bg-[#0c2029]', pathName === '/list-domains' && 'bg-[#020e14]', pathName==='/profile' && 'bg-[#042b3f]', pathName === '/transaction' && 'bg-[#080c14]')}>
             <div className={cn("font-title1 font-semibold text-xl uppercase text-white pl-8 pt-2 w-[20%]", pathName === '/' && 'text-white')}>
                 Crypto Domains
             </div>
@@ -60,6 +60,13 @@ const Navbar = () => {
                             </li>
                         </div>
                     )}
+                    |
+                    <li
+                        onClick={() => router.push('/transaction')}
+                        className={cn("cursor-pointer", pathName==="/transaction" && "text-white font-bold")}
+                    >
+                        Make transaction
+                    </li>
                 </ul>
             </div>
             {account ? (
@@ -72,7 +79,10 @@ const Navbar = () => {
                 </div>
             )}
             
-            <div className="absolute right-8 p-1 bg-white rounded-lg">
+            <div
+                onClick={() => router.push('/profile')} 
+                className="absolute right-8 p-1 bg-white rounded-lg cursor-pointer hover:bg-zinc-200"
+            >
                 Profile
             </div>
         </div>

@@ -159,7 +159,7 @@ contract CryptoDomains is ERC721 {
         payable(previousOwner).transfer(msg.value);
     }
 
-    function getUserDomains() public view returns (string[] memory) {
-        return userDomains[msg.sender];
+    function getUserDomains(address userAddress) public view returns (string[] memory) {
+        return userDomains[userAddress];
     }
 }

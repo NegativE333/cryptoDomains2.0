@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "app/(routes)/transaction/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

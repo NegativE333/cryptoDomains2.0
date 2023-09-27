@@ -6,6 +6,7 @@ import CryptoDomains from "../../abis/CryptoDomains.json";
 import config from "../../config.json";
 import { useEffect, useState } from "react";
 
+
 //Component imports
 import CheckDomainAvailable from '../../../components/check-domain-available';
 import DomainCard from "../../../components/domain-card";
@@ -43,13 +44,13 @@ const BuyDomains = () => {
   }, []);
 
   return (
-    <div className="w-full h-[100vh] bg-[url('/images/layer4.svg')] bg-no-repeat bg-cover flex gap-16">
+    <div className="w-full h-[100vh] bg-[url('/images/layer5.svg')] bg-no-repeat bg-cover flex gap-16">
         <div className="w-[50%] flex justify-center mt-48">
             <CheckDomainAvailable cryptoDomains={cryptoDomains} provider={provider}/>
         </div>
         <div className="w-[35%] flex items-center justify-center flex-col">
                 <div className="text-white text-xl font-domain p-2">
-                    Domain name available
+                    Prelisted Domains
                 </div>
                 {domains.map((domain, i) => (
                     <DomainCard 

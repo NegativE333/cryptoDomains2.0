@@ -27,6 +27,7 @@ const CheckDomainAvailable = ({cryptoDomains, provider}) => {
               const signer = await provider.getSigner();
               const transaction = await cryptoDomains.connect(signer).list(domainName, tokens(1))
               await transaction.wait();
+              toast.success("Domain listed.")
             }
             const isDomainTaken = await cryptoDomains.isDomainTaken(domainName);
             setIsTaken(isDomainTaken);
@@ -69,7 +70,7 @@ const CheckDomainAvailable = ({cryptoDomains, provider}) => {
     return (  
         <div className="text-white flex flex-col gap-4">
         <h2 className="font-subTitle font-semibold text-3xl text-center">
-            Enter the name of domain
+          Find Your Perfect Domain
         </h2>
         <div className="flex flex-col items-center gap-2">
           <input
