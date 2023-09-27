@@ -1,6 +1,7 @@
-# Crypto Domains Marketplace
+# Crypto Domains
 
-![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/49170863-1e53-423d-8988-32efb5e90812)
+![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/c39728f1-ed69-4417-ad0e-f2e57c4d9d97)
+
 
 
 ## About
