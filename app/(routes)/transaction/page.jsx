@@ -82,7 +82,7 @@ const Transaction = () => {
     <div className="w-full h-[100vh] bg-[url('/images/layer6.svg')] bg-no-repeat bg-cover flex gap-16">
       <div className="w-full h-[100vh] bg-[url('/images/layer3.svg')] bg-no-repeat bg-cover flex justify-center text-white">
         <div className=" flex flex-col gap-4 mt-44">
-          <h2 className="font-subTitle font-semibold text-3xl text-center">
+          <h2 className="font-subTitle font-semibold text-2xl lg:text-3xl text-center">
             Make transaction using crypto domain
           </h2>
           <div className="flex flex-col items-center gap-2">

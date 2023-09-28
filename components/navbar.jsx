@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react';
 import { cn } from '../libs/utils';
 import { ethers } from 'ethers';
+import { BiUserCircle } from 'react-icons/bi';
 
 const Navbar = () => {
     const pathName = usePathname();
@@ -31,10 +32,10 @@ const Navbar = () => {
 
     return (  
         <div className={cn("fixed flex items-center p-2 h-16 w-full bg-black", pathName === '/' && 'bg-black', pathName === '/buy-domains' && 'bg-[#0c2029]', pathName === '/list-domains' && 'bg-[#020e14]', pathName==='/profile' && 'bg-[#042b3f]', pathName === '/transaction' && 'bg-[#080c14]')}>
-            <div className={cn("font-title1 font-semibold text-xl uppercase text-white pl-8 pt-2 w-[20%]", pathName === '/' && 'text-white')}>
+            <div className={cn("font-title1 font-semibold lg:text-xl uppercase text-white pl-4 lg:pl-8 pt-2 w-[20%]", pathName === '/' && 'text-white')}>
                 Crypto Domains
             </div>
-            <div className="w-[60%] pt-2">
+            <div className="hidden lg:flex w-[60%] pt-2">
                 <ul className="flex gap-6 text-zinc-300 font-semibold">
                     <li 
                         onClick={() => router.push('/')}
@@ -70,20 +71,20 @@ const Navbar = () => {
                 </ul>
             </div>
             {account ? (
-                <div className='bg-green-300 text-[12px] p-1 rounded-lg'>
+                <div className='hidden lg:flex bg-green-300 text-[12px] lg:ml-0  p-1 rounded-lg '>
                     Connected with wallet
                 </div>
             ) : (
-                <div className='bg-red-400 text-[12px] p-1 rounded-lg'>
+                <div className='hidden lg:flex bg-red-400 text-[12px] p-1 rounded-lg'>
                     Not connected with wallet
                 </div>
             )}
             
             <div
                 onClick={() => router.push('/profile')} 
-                className="absolute right-8 p-1 bg-white rounded-lg cursor-pointer hover:bg-zinc-200"
+                className="absolute right-8 p-[1px] rounded-full cursor-pointer hover:bg-white transition duration-300"
             >
-                Profile
+                <BiUserCircle  className='text-3xl text-white hover:text-black transition duration-300'/>
             </div>
         </div>
     );

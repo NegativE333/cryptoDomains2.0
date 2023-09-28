@@ -44,7 +44,7 @@ const BuyDomains = () => {
   }, []);
 
   return (
-    <div className="w-full h-[100vh] bg-[url('/images/layer5.svg')] bg-no-repeat bg-cover flex gap-16">
+    <div className="w-full h-[100vh] bg-[url('/images/layer5.svg')] bg-no-repeat bg-cover flex flex-col lg:flex-row lg:gap-16">
         <div className="w-[50%] flex justify-center mt-48">
             <CheckDomainAvailable cryptoDomains={cryptoDomains} provider={provider}/>
         </div>
