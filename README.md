@@ -33,7 +33,7 @@ Follow these steps to set up and run the Crypto Domains Marketplace project loca
 
 ```bash
 git clone https://github.com/NegativE333/cryptoDomains2.0.git
-cd crypto-domains-marketplace
+cd cryptoDomains2.0
 ```
 
 ### 2. Install Dependencies
