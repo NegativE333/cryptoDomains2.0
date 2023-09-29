@@ -114,20 +114,20 @@ const Profile = () => {
     }
 
     return (  
-        <div className="w-full h-[100vh] bg-[url('/images/layer4.svg')] bg-no-repeat bg-cover flex">
-            <div className="w-[50%] flex flex-col gap-4 justify-start pl-24 text-white mt-44">
-                <div className="font-title text-4xl">
+        <div className="w-full h-[100vh] bg-[url('/images/layer4.svg')] bg-no-repeat bg-cover flex flex-col lg:flex-row">
+            <div className="lg:w-[50%] flex flex-col gap-4 lg:justify-start justify-center items-center lg:items-start lg:pl-24  text-white lg:mt-44 mt-24">
+                <div className="font-title lg:text-4xl text-3xl">
                     {greet},
                 </div>
-                <div className='text-2xl font-semibold font-subTitle'>
+                <div className='lg:text-2xl text-[13px] font-semibold font-subTitle'>
                     {account}
                 </div>
                 <div className='text-xl font-subTitle'>
                     <span className='font-semibold'>Your balance :</span> {userBalance.slice(0, 6)} ETH
                 </div>
             </div>
-            <div className='w-[40%] flex flex-col gap-4 mt-44 text-white pl-16'>
-                <div className='font-title text-3xl text-center'>
+            <div className='lg:w-[40%] flex flex-col gap-4 lg:mt-44 mt-16 text-white lg:pl-16'>
+                <div className='font-title lg:text-3xl text-2xl text-center'>
                     Domains you have
                 </div>
                 <div className='flex flex-col gap-2 items-end text-black'>

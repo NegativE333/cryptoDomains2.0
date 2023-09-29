@@ -45,10 +45,10 @@ const BuyDomains = () => {
 
   return (
     <div className="w-full h-[100vh] bg-[url('/images/layer5.svg')] bg-no-repeat bg-cover flex flex-col lg:flex-row lg:gap-16">
-        <div className="w-[50%] flex justify-center mt-48">
+        <div className="lg:w-[50%] flex justify-center lg:mt-48 mt-24">
             <CheckDomainAvailable cryptoDomains={cryptoDomains} provider={provider}/>
         </div>
-        <div className="w-[35%] flex items-center justify-center flex-col">
+        <div className="pl-4 pr-8 mt-8 lg:w-[35%] flex items-center justify-center flex-col">
                 <div className="text-white text-xl font-domain p-2">
                     Prelisted Domains
                 </div>

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { cn } from '../libs/utils';
 import { ethers } from 'ethers';
 import { BiUserCircle } from 'react-icons/bi';
+import MobileNav from './mobile-nav';
 
 const Navbar = () => {
     const pathName = usePathname();
@@ -81,11 +82,16 @@ const Navbar = () => {
             )}
             
             <div
-                onClick={() => router.push('/profile')} 
                 className="absolute right-8 p-[1px] rounded-full cursor-pointer hover:bg-white transition duration-300"
             >
-                <BiUserCircle  className='text-3xl text-white hover:text-black transition duration-300'/>
+                <BiUserCircle  
+                    onClick={() => router.push('/profile')} 
+                    className='text-3xl hidden lg:flex text-white hover:text-black transition duration-300'
+                />
             </div>
+                <div className='absolute lg:hidden right-4'>
+                    <MobileNav />
+                </div>
         </div>
     );
 }
