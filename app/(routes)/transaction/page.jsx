@@ -57,25 +57,30 @@ const Transaction = () => {
   }, [account]);
 
   async function sendTransaction() {
-    const receiverDomain = await cryptoDomains.getDomainByName(domainName);
-    const receiverAddress =receiverDomain.ownerAddress;
-    let params = [{
-        from: account,
-        to: receiverAddress,
-        gas: Number(21000).toString(16),
-        gasPrice: Number(5000000000).toString(16),
-        value: ethers.utils.parseEther(amountToSend).toString(),
-    }]
-
-    try{
-      let result = await window.ethereum.request({method: "eth_sendTransaction", params})
-      toast.success("Transaction initiated.");
+    const validDomain = await cryptoDomains.isDomainTaken(domainName);
+    if(validDomain){
+      const receiverDomain = await cryptoDomains.getDomainByName(domainName);
+      const receiverAddress =receiverDomain.ownerAddress;
+      let params = [{
+          from: account,
+          to: receiverAddress,
+          gas: Number(21000).toString(16),
+          gasPrice: Number(5000000000).toString(16),
+          value: ethers.utils.parseEther(amountToSend).toString(),
+      }]
+  
+      try{
+        let result = await window.ethereum.request({method: "eth_sendTransaction", params})
+        toast.success("Transaction initiated.");
+      }
+      catch(error){
+        toast.error("Transaction failed.");
+        console.log(error);
+      }
     }
-    catch(error){
-      toast.error("Transaction failed.");
-      console.log(error);
+    else{
+      toast.error("Invalid domain name.");
     }
-    
   }
 
   return (
