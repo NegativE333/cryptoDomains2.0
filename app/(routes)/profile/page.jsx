@@ -142,7 +142,7 @@ const Profile = () => {
                             <div 
                                 className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover:bg-slate-800 transition cursor-pointer text-white font-domain text-[15px]"
                             >
-                                Sell
+                                Owned
                             </div>
                         </div>
                     ))}

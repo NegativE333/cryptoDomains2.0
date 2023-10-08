@@ -56,6 +56,7 @@ const ListDomains = () => {
 
   const listDomain = async () => {
     try {
+      if(isDomainValid(domainName)){
         const isDomainExists = await cryptoDomains.isDomainListed(domainName);
         if(!isDomainExists){
             const signer = await provider.getSigner()
@@ -67,11 +68,19 @@ const ListDomains = () => {
         else{
             toast.error(`${domainName} already exists.`)
         }
+      }
+      else{
+        toast.error("Include '.eth' in the domain name.");
+      }
     } 
     catch (error) {
         toast.error("Something went wrong.");
         console.log(error);
     }
+  };
+
+  const isDomainValid = (name) => {
+    return name.endsWith(".eth") && name !== null;
   };
 
   useEffect(() => {
