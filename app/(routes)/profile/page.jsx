@@ -127,9 +127,21 @@ const Profile = () => {
                 </div>
             </div>
             <div className='lg:w-[40%] flex flex-col gap-4 lg:mt-44 mt-16 text-white lg:pl-16'>
-                <div className='font-title lg:text-3xl text-2xl text-center'>
-                    Domains you have
-                </div>
+                {domainsData.length === 0 ? (
+                    <div className='font-title lg:text-3xl text-2xl text-center flex justify-center items-center flex-col gap-4'>
+                        You dont have any domain
+                        <div 
+                            onClick={() => router.push('/buy-domains')}
+                            className='border-2 w-36 h-12 p-2 rounded-full text-[16px] flex items-center justify-center font-semibold hover:text-black hover:bg-white hover:border-black cursor-pointer transition duration-300'
+                        >
+                            Bye Domain
+                        </div>
+                    </div>
+                ) : (
+                    <div className='font-title lg:text-3xl text-2xl text-center'>
+                        Domains you have
+                    </div>
+                )}
                 <div className='flex flex-col gap-2 items-end text-black'>
                     {domainsData.map((domain, i) => (
                         <div key={i} className='bg-white w-full h-[50px] p-2 rounded-xl flex items-center relative m-2'>

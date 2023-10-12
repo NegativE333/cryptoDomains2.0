@@ -29,7 +29,7 @@ const Navbar = () => {
     useEffect(() => {
         connection();
         router.refresh();
-    }, [account]);
+    }, [account, router]);
 
     return (  
         <div className={cn("fixed flex items-center p-2 h-16 w-full bg-black", pathName === '/' && 'bg-black', pathName === '/buy-domains' && 'bg-[#0c2029]', pathName === '/list-domains' && 'bg-[#020e14]', pathName==='/profile' && 'bg-[#042b3f]', pathName === '/transaction' && 'bg-[#080c14]')}>
