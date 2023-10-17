@@ -71,6 +71,8 @@ const Transaction = () => {
   
       try{
         let result = await window.ethereum.request({method: "eth_sendTransaction", params})
+        setDomainName("");
+        setAmountToSend("");
         toast.success("Transaction initiated.");
       }
       catch(error){
