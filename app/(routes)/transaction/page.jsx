@@ -1,6 +1,5 @@
 "use client";
 
-//Crypto imports
 import { ethers } from "ethers";
 import CryptoDomains from "../../abis/CryptoDomains.json";
 import config from "../../config.json";
@@ -61,19 +60,19 @@ const Transaction = () => {
     if(validDomain){
       const receiverDomain = await cryptoDomains.getDomainByName(domainName);
       const receiverAddress =receiverDomain.ownerAddress;
-      let params = [{
-          from: account,
-          to: receiverAddress,
-          gas: Number(21000).toString(16),
-          gasPrice: Number(5000000000).toString(16),
-          value: ethers.utils.parseEther(amountToSend).toString(),
-      }]
-  
+      
+      const signer = provider.getSigner();
+
       try{
-        let result = await window.ethereum.request({method: "eth_sendTransaction", params})
+        let result = await signer.sendTransaction({
+          to: receiverAddress,
+          value: ethers.utils.parseEther(amountToSend)
+        });
+
         setDomainName("");
         setAmountToSend("");
         toast.success("Transaction initiated.");
+
       }
       catch(error){
         toast.error("Transaction failed.");
