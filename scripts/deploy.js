@@ -27,8 +27,8 @@ async function main() {
   console.log(`Deployed Domain Contract at: ${cryptoDomains.address}\n`)
 
   // List 6 domains
-  const names = ["shri.eth", "nothing.eth", "om.eth", "bit.eth", "one.eth", "earth.eth", "CryptoVista.eth"]
-  const costs = [tokens(10), tokens(25), tokens(100), tokens(2.5), tokens(3), tokens(1), tokens(15)]
+  const names = ["vit.eth", "nothing.eth", "pune.eth", "mh.eth", "one.eth", "earth.eth", "bit.eth"]
+  const costs = [tokens(0.1), tokens(0.25), tokens(1), tokens(1.5), tokens(0.3), tokens(0.1), tokens(0.15)]
 
   for (var i = 0; i < names.length; i++) {
     const transaction = await cryptoDomains.connect(deployer).list(names[i], costs[i])

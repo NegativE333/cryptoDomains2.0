@@ -108,7 +108,7 @@ const ListDomains = () => {
           />
           <input
             className="w-[250px] rounded-md h-[35px] p-2 text-slate-600 text-center"
-            type="text"
+            type="number"
             placeholder="Enter domain price"
             value={domainPrice}
             onChange={(e) => setDomainPrice(e.target.value)}

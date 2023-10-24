@@ -132,6 +132,13 @@ contract CryptoDomains is ERC721 {
         domains[_id].cost = _price;
     }
 
+    function unlistDomainForSale(uint256 _id) public{
+        require(domains[_id].isOwned, "Domain is not owned");
+        require(domains[_id].ownerAddress == msg.sender, "Only the owner can unlist for sale");
+
+        domains[_id].isForSale = false;
+    }
+
     function buyDomain(uint256 _id) public payable {
         require(domains[_id].isForSale, "Domain is not for sale");
         require(msg.value >= domains[_id].cost, "Insufficient funds to purchase");

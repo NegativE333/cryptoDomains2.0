@@ -32,31 +32,31 @@ const Navbar = () => {
     }, [account, router]);
 
     return (  
-        <div className={cn("fixed flex items-center p-2 h-16 w-full bg-black", pathName === '/' && 'bg-black', pathName === '/buy-domains' && 'bg-[#0c2029]', pathName === '/list-domains' && 'bg-[#020e14]', pathName==='/profile' && 'bg-[#042b3f]', pathName === '/transaction' && 'bg-[#080c14]')}>
+        <div className={cn("fixed flex items-center p-2 h-16 w-full bg-black", pathName === '/' && 'bg-black', pathName === '/buy-domains' && 'bg-[#0c2029]', pathName === '/list-domains' && 'bg-[#020e14]', pathName==='/profile' && 'bg-[#042b3f]', pathName === '/transaction' && 'bg-[#080c14]', pathName === '/sale' && 'bg-[#173849]')}>
             <div className={cn("font-title1 font-semibold lg:text-xl uppercase text-white pl-4 lg:pl-8 pt-2 w-[20%]", pathName === '/' && 'text-white')}>
                 Crypto Domains
             </div>
             <div className="hidden lg:flex w-[60%] pt-2">
-                <ul className="flex gap-6 text-zinc-300 font-semibold">
+                <ul className="flex gap-4 text-zinc-300 font-semibold">
                     <li 
                         onClick={() => router.push('/')}
-                        className={cn("cursor-pointer", pathName==="/" && "text-white font-bold")}
+                        className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/" && "text-white font-bold")}
                     >
                         Home
                     </li>
                     |
                     <li
                         onClick={() => router.push('/buy-domains')}
-                        className={cn("cursor-pointer", pathName==="/buy-domains" && "text-white font-bold")}
+                        className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/buy-domains" && "text-white font-bold")}
                     >
                         Buy Domain
                     </li>
                     {account === '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' && (
-                        <div className='flex gap-8'>
+                        <div className='flex gap-4'>
                             |
                             <li
                                 onClick={() => router.push('/list-domains')}
-                                className={cn("cursor-pointer", pathName==="/list-domains" && "text-white font-bold")}
+                                className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/list-domains" && "text-white font-bold")}
                             >
                                 List Domain
                             </li>
@@ -65,9 +65,16 @@ const Navbar = () => {
                     |
                     <li
                         onClick={() => router.push('/transaction')}
-                        className={cn("cursor-pointer", pathName==="/transaction" && "text-white font-bold")}
+                        className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/transaction" && "text-white font-bold")}
                     >
                         Make transaction
+                    </li>
+                    |
+                    <li
+                        onClick={() => router.push('/sale')}
+                        className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/sale" && "text-white font-bold")}
+                    >
+                        List for sale
                     </li>
                 </ul>
             </div>

@@ -9,6 +9,8 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
   const [domainData, setDomainData] = useState([]);
   const [price, setPrice] = useState("");
   const [hasSold, setHasSold] = useState(false);
+  const [isForSale, setIsForSale] = useState(false);
+  const [forSale, setForSale] = useState(true);
 
   const router = useRouter();
 
@@ -30,6 +32,9 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
           toast.success("Domain listed.");
         }
         const isDomainTaken = await cryptoDomains.isDomainTaken(domainName);
+        const domain = await cryptoDomains.getDomainByName(domainName);
+        if(domain.isForSale) setIsForSale(true);
+
         setIsTaken(isDomainTaken);
         if (!isTaken) {
           const domainData = await cryptoDomains.getDomainByName(domainName);
@@ -47,6 +52,23 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
       }
     } catch (error) {
       console.error("Error checking domain availability:", error);
+    }
+  };
+
+  const saleBuyHandler = async () => {
+    try {
+      const domainId = await cryptoDomains.getDomainIdByName(domainData.name);
+      const signer = await provider.getSigner();
+      const transaction = await cryptoDomains
+        .connect(signer)
+        .buyDomain(domainId, { value: domainData.cost });
+      await transaction.wait();
+      setHasSold(true);
+      setForSale(false);
+      toast.success("Domain registered!");
+    } catch (error) {
+      toast.error("Something went wrong.");
+      console.log(error);
     }
   };
 
@@ -103,14 +125,14 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
       </div>
       {isTaken !== null && (
         <div className="flex items-center justify-center">
-          {isTaken ? (
+          {isTaken && !isForSale ? (
             <div className="font-subTitle text-center text-red-400 w-[80%]">
               Sorry! but this domain name is already taken by someone else
             </div>
           ) : (
             <div className="bg-white text-black w-full h-[50px] p-2 rounded-xl flex items-center relative m-2">
               <div className="font-domain pl-2 font-bold text-[18px] w-[40%]">
-                {domainData?.isOwned || hasSold ? (
+                {(!domainData?.isForSale && domainData.isOwned) || hasSold ? (
                   <del>{domainData.name}</del>
                 ) : (
                   <span>{domainData.name}</span>
@@ -118,17 +140,28 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
               </div>
               <div className="font-bold text-right w-[30%]">{price} ETH</div>
               {domainData.isOwned || hasSold ? (
-                <div className="absolute top-0 bottom-0 right-0 bg-slate-400 w-[20%] flex items-center justify-center hover:bg-slate-200 transition cursor-not-allowed text-black font-domain text-[15px]">
-                  Sold
-                </div>
-              ) : (
-                <div
-                  onClick={() => buyHandler()}
-                  className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover:bg-slate-800 transition cursor-pointer text-white font-domain text-[15px]"
-                >
-                  Buy it
-                </div>
-              )}
+            domainData.isForSale && forSale ? (
+              <div
+                onClick={() => saleBuyHandler()}
+                className="absolute top-0 bottom-0 right-0 bg-slate-400 w-[20%] flex flex-col items-center justify-center hover:bg-slate-200 transition text-black font-domain text-[15px] cursor-pointer"
+              >
+                Buy <span className="text-[10px]">Open for sale</span>
+              </div>
+            ) : (
+              <div
+                className="absolute top-0 bottom-0 right-0 bg-slate-400 w-[20%] flex flex-col items-center justify-center hover:bg-slate-200 transition cursor-not-allowed text-black font-domain text-[15px]"
+              >
+                Sold
+              </div>
+            )
+          ) : (
+            <div
+              onClick={() => buyHandler()}
+              className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover-bg-slate-800 transition cursor-pointer text-white font-domain text-[15px]"
+            >
+              Buy it
+            </div>
+          )}
             </div>
           )}
         </div>
