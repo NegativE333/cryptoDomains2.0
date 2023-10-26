@@ -1,17 +1,19 @@
 "use client";
 
 //Crypto imports
-import { ethers } from 'ethers';
-import CryptoDomains from '../../abis/CryptoDomains.json';
-import config from '../../config.json';
+import { ethers } from "ethers";
+import CryptoDomains from "../../abis/CryptoDomains.json";
+import config from "../../config.json";
 
+//React imports
 import { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const ListDomains = () => {
   const [domainName, setDomainName] = useState("");
   const [domainPrice, setDomainPrice] = useState("");
+  const [Btn, setBtn] = useState("List");
 
   const router = useRouter();
 
@@ -46,36 +48,39 @@ const ListDomains = () => {
       provider
     );
     setCryptoDomains(cryptoDomains);
-    
   };
 
-    const tokens = (n) => {
-        // eslint-disable-next-line 
-        return ethers.utils.parseUnits(n.toString(), 'ether')
-    }
+  const tokens = (n) => {
+    // eslint-disable-next-line
+    return ethers.utils.parseUnits(n.toString(), "ether");
+  };
 
   const listDomain = async () => {
     try {
-      if(isDomainValid(domainName)){
+      setBtn("Listing...");
+      if (isDomainValid(domainName)) {
         const isDomainExists = await cryptoDomains.isDomainListed(domainName);
-        if(!isDomainExists){
-            const signer = await provider.getSigner()
-            const transaction = await cryptoDomains.connect(signer).list(domainName, tokens(domainPrice))
-            await transaction.wait()
-            toast.success("Domain listed.")
-            router.refresh();
+        if (!isDomainExists) {
+          const signer = await provider.getSigner();
+          const transaction = await cryptoDomains
+            .connect(signer)
+            .list(domainName, tokens(domainPrice));
+          await transaction.wait();
+          toast.success("Domain listed.");
+          router.refresh();
+        } else {
+          toast.error(`${domainName} already exists.`);
         }
-        else{
-            toast.error(`${domainName} already exists.`)
-        }
-      }
-      else{
+      } else {
         toast.error("Include '.eth' in the domain name.");
       }
-    } 
-    catch (error) {
-        toast.error("Something went wrong.");
-        console.log(error);
+      setDomainName("");
+      setDomainPrice("");
+      setBtn("List");
+    } catch (error) {
+      setBtn("List");
+      toast.error("Something went wrong.");
+      console.log(error);
     }
   };
 
@@ -100,14 +105,14 @@ const ListDomains = () => {
         </h2>
         <div className="flex flex-col items-center gap-2">
           <input
-            className="w-[250px] rounded-md h-[35px] p-2 text-slate-600 text-center"
+            className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2 mt-2"
             type="text"
             placeholder="Enter domain name"
             value={domainName}
             onChange={(e) => setDomainName(e.target.value)}
           />
           <input
-            className="w-[250px] rounded-md h-[35px] p-2 text-slate-600 text-center"
+            className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2"
             type="number"
             placeholder="Enter domain price"
             value={domainPrice}
@@ -115,9 +120,9 @@ const ListDomains = () => {
           />
           <button
             onClick={() => listDomain()}
-            className="bg-zinc-200 rounded-xl text-black font-semibold w-[100px] hover:bg-zinc-300"
+            className="bg-transparent rounded-xl font-semibold w-[100px]  py-1 border-2 border-white hover:outline-none hover:bg-zinc-100 hover:text-black hover:border-black transition duration-200"
           >
-            List
+            {Btn}
           </button>
         </div>
       </div>

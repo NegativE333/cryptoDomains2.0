@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 const Transaction = () => {
   const [domainName, setDomainName] = useState("");
   const [amountToSend, setAmountToSend] = useState("");
+  const [Btn, setBtn] = useState("Send");
 
   const [account, setAccount] = useState(null);
   const router = useRouter();
@@ -56,6 +57,7 @@ const Transaction = () => {
   }, [account]);
 
   async function sendTransaction() {
+    setBtn("Sending...")
     const validDomain = await cryptoDomains.isDomainTaken(domainName);
     if(validDomain){
       const receiverDomain = await cryptoDomains.getDomainByName(domainName);
@@ -72,7 +74,7 @@ const Transaction = () => {
         setDomainName("");
         setAmountToSend("");
         toast.success("Transaction initiated.");
-
+        setBtn("Send");
       }
       catch(error){
         toast.error("Transaction failed.");
@@ -93,14 +95,14 @@ const Transaction = () => {
           </h2>
           <div className="flex flex-col items-center gap-2">
             <input
-              className="w-[250px] rounded-md h-[35px] p-2 text-slate-600 text-center"
+              className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2 mt-2"
               type="text"
               placeholder="Enter receiver domain name"
               value={domainName}
               onChange={(e) => setDomainName(e.target.value)}
             />
             <input
-              className="w-[250px] rounded-md h-[35px] p-2 text-slate-600 text-center"
+              className="w-[250px] rounded-md h-[45px] text-zinc-100 text-center bg-transparent border-2 mb-2"
               type="text"
               placeholder="Enter ETH to send"
               value={amountToSend}
@@ -108,9 +110,9 @@ const Transaction = () => {
             />
             <button
               onClick={() => sendTransaction()}
-              className="bg-zinc-200 rounded-xl text-black font-semibold w-[100px] hover:bg-zinc-300"
+              className="bg-transparent rounded-xl font-semibold w-[100px]  py-1 border-2 border-white hover:outline-none hover:bg-zinc-100 hover:text-black hover:border-black transition duration-200"
             >
-              Send
+              {Btn}
             </button>
           </div>
         </div>

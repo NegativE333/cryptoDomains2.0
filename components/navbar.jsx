@@ -5,6 +5,10 @@ import { useEffect, useState } from 'react';
 import { cn } from '../libs/utils';
 import { ethers } from 'ethers';
 import { BiUserCircle } from 'react-icons/bi';
+import { HiOutlineMenuAlt1 } from "react-icons/hi";
+import { LuSendToBack } from "react-icons/lu";
+import { AiOutlineCrown, AiOutlineHome } from "react-icons/ai";
+import { MdPublishedWithChanges, MdOutlineSell } from "react-icons/md";
 import MobileNav from './mobile-nav';
 
 const Navbar = () => {
@@ -37,43 +41,48 @@ const Navbar = () => {
                 Crypto Domains
             </div>
             <div className="hidden lg:flex w-[60%] pt-2">
-                <ul className="flex gap-4 text-zinc-300 font-semibold">
+                <ul className="flex gap-3 text-zinc-300 font-semibold">
                     <li 
                         onClick={() => router.push('/')}
-                        className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/" && "text-white font-bold")}
+                        className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/" && "text-white font-bold")}
                     >
+                        <AiOutlineHome />
                         Home
                     </li>
-                    |
+                   <span className='text-white font-bold'>|</span> 
                     <li
                         onClick={() => router.push('/buy-domains')}
-                        className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/buy-domains" && "text-white font-bold")}
+                        className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/buy-domains" && "text-white font-bold")}
                     >
+                        <AiOutlineCrown />
                         Buy Domain
                     </li>
                     {account === '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' && (
                         <div className='flex gap-4'>
-                            |
+                            <span className='text-white font-bold'>|</span>
                             <li
                                 onClick={() => router.push('/list-domains')}
-                                className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/list-domains" && "text-white font-bold")}
+                                className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/list-domains" && "text-white font-bold")}
                             >
+                                <MdPublishedWithChanges />
                                 List Domain
                             </li>
                         </div>
                     )}
-                    |
+                    <span className='text-white font-bold'>|</span>
                     <li
                         onClick={() => router.push('/transaction')}
-                        className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/transaction" && "text-white font-bold")}
+                        className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/transaction" && "text-white font-bold")}
                     >
+                        <LuSendToBack />
                         Make transaction
                     </li>
-                    |
+                    <span className='text-white font-bold'>|</span>
                     <li
                         onClick={() => router.push('/sale')}
-                        className={cn("cursor-pointer hover:text-white transition duration-200", pathName==="/sale" && "text-white font-bold")}
+                        className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/sale" && "text-white font-bold")}
                     >
+                        <MdOutlineSell />
                         List for sale
                     </li>
                 </ul>

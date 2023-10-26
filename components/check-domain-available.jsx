@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+//Crypto imports
 import { ethers } from "ethers";
-import { useRouter } from "next/navigation";
+
+//React imports
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
@@ -12,8 +14,6 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
   const [isForSale, setIsForSale] = useState(false);
   const [forSale, setForSale] = useState(true);
 
-  const router = useRouter();
-
   const tokens = (n) => {
     // eslint-disable-next-line
     return ethers.utils.parseUnits(n.toString(), "ether");
@@ -21,33 +21,32 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
 
   const checkAvailability = async () => {
     try {
-      if(isDomainValid(domainName)){
+      if (isDomainValid(domainName)) {
         const isDomainExists = await cryptoDomains.isDomainListed(domainName);
         if (!isDomainExists) {
           const signer = await provider.getSigner();
           const transaction = await cryptoDomains
             .connect(signer)
-            .list(domainName, tokens(1));
+            .list(domainName, tokens(0.01));
           await transaction.wait();
           toast.success("Domain listed.");
         }
         const isDomainTaken = await cryptoDomains.isDomainTaken(domainName);
         const domain = await cryptoDomains.getDomainByName(domainName);
-        if(domain.isForSale) setIsForSale(true);
+        if (domain.isForSale) setIsForSale(true);
 
         setIsTaken(isDomainTaken);
         if (!isTaken) {
           const domainData = await cryptoDomains.getDomainByName(domainName);
           setDomainData(domainData);
-  
+
           const priceInEther = ethers.utils.formatUnits(
             domainData.cost.toString(),
             "ether"
           );
           setPrice(priceInEther);
         }
-      }
-      else{
+      } else {
         toast.error("Include '.eth' in the domain name.");
       }
     } catch (error) {
@@ -108,9 +107,9 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
       </h2>
       <div className="flex flex-col items-center gap-2">
         <input
-          className={`w-[250px] rounded-md h-[35px] p-2 text-slate-600 text-center ${
-            isDomainValid(domainName) ? "" : "border-red-500"
-          }`} 
+          className={`w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-white border-2 mb-2 mt-2 ${
+            !isDomainValid(domainName) && "border-red-500"
+          }`}
           type="text"
           placeholder="Enter domain name"
           value={domainName}
@@ -118,7 +117,7 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
         />
         <button
           onClick={checkAvailability}
-          className="bg-zinc-200 rounded-xl text-black font-semibold w-[100px] hover:bg-zinc-300"
+          className="bg-transparent rounded-xl font-semibold w-[100px]  py-1 border-2 border-white hover:outline-none hover:bg-white hover:text-black hover:border-black transition duration-100"
         >
           Get
         </button>
@@ -140,28 +139,26 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
               </div>
               <div className="font-bold text-right w-[30%]">{price} ETH</div>
               {domainData.isOwned || hasSold ? (
-            domainData.isForSale && forSale ? (
-              <div
-                onClick={() => saleBuyHandler()}
-                className="absolute top-0 bottom-0 right-0 bg-slate-400 w-[20%] flex flex-col items-center justify-center hover:bg-slate-200 transition text-black font-domain text-[15px] cursor-pointer"
-              >
-                Buy <span className="text-[10px]">Open for sale</span>
-              </div>
-            ) : (
-              <div
-                className="absolute top-0 bottom-0 right-0 bg-slate-400 w-[20%] flex flex-col items-center justify-center hover:bg-slate-200 transition cursor-not-allowed text-black font-domain text-[15px]"
-              >
-                Sold
-              </div>
-            )
-          ) : (
-            <div
-              onClick={() => buyHandler()}
-              className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover-bg-slate-800 transition cursor-pointer text-white font-domain text-[15px]"
-            >
-              Buy it
-            </div>
-          )}
+                domainData.isForSale && forSale ? (
+                  <div
+                    onClick={() => saleBuyHandler()}
+                    className="absolute top-0 bottom-0 right-0 bg-slate-400 w-[20%] flex flex-col items-center justify-center hover:bg-slate-200 transition text-black font-domain text-[15px] cursor-pointer"
+                  >
+                    Buy <span className="text-[10px]">Open for sale</span>
+                  </div>
+                ) : (
+                  <div className="absolute top-0 bottom-0 right-0 bg-slate-400 w-[20%] flex flex-col items-center justify-center hover:bg-slate-200 transition cursor-not-allowed text-black font-domain text-[15px]">
+                    Sold
+                  </div>
+                )
+              ) : (
+                <div
+                  onClick={() => buyHandler()}
+                  className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover-bg-slate-800 transition cursor-pointer text-white font-domain text-[15px]"
+                >
+                  Buy it
+                </div>
+              )}
             </div>
           )}
         </div>

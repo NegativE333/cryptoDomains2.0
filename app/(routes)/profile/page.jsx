@@ -5,6 +5,7 @@ import { ethers } from "ethers";
 import CryptoDomains from "../../abis/CryptoDomains.json";
 import config from "../../config.json";
 
+//React imports
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";

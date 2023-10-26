@@ -5,7 +5,6 @@ import CryptoDomains from "../../abis/CryptoDomains.json";
 import config from "../../config.json";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const Sale = () => {
@@ -14,6 +13,7 @@ const Sale = () => {
   const [domains, setDomains] = useState([]);
   const [domainName, setDomainName] = useState("");
   const [domainPrice, setDomainPrice] = useState("");
+  const [Btn, setBtn] = useState("List for sale");
 
   const loadBlockchainData = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -43,22 +43,26 @@ const Sale = () => {
   }, []);
 
   const tokens = (n) => {
-    // eslint-disable-next-line 
-    return ethers.utils.parseUnits(n.toString(), 'ether')
-}
+    // eslint-disable-next-line
+    return ethers.utils.parseUnits(n.toString(), "ether");
+  };
 
   const handleListDomainForSale = async () => {
-    try{
-        const signer = await provider.getSigner()
-        const domainId = await cryptoDomains.getDomainIdByName(domainName);
-        const transaction = await cryptoDomains.connect(signer).listDomainForSale(domainId, tokens(domainPrice))
-        await transaction.wait()
-        setDomainName("");
-        setDomainPrice("");
-        toast.success("Domain listed for sale.")
-    }
-    catch(error){
-        toast.error("Domain must be owned by you.");
+    try {
+      setBtn("Listing...")
+      const signer = await provider.getSigner();
+      const domainId = await cryptoDomains.getDomainIdByName(domainName);
+      const transaction = await cryptoDomains
+        .connect(signer)
+        .listDomainForSale(domainId, tokens(domainPrice));
+      await transaction.wait();
+      setDomainName("");
+      setDomainPrice("");
+      toast.success("Domain listed for sale.");
+      setBtn("List for sale");
+    } catch (error) {
+      setBtn("List for sale");
+      toast.error("Domain must be owned by you.");
     }
   };
 
@@ -70,14 +74,14 @@ const Sale = () => {
         </h2>
         <div className="flex flex-col items-center gap-2">
           <input
-            className="w-[250px] rounded-md h-[35px] p-2 text-slate-600 text-center"
+            className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2 mt-2"
             type="text"
             placeholder="Enter domain name"
             value={domainName}
             onChange={(e) => setDomainName(e.target.value)}
           />
           <input
-            className="w-[250px] rounded-md h-[35px] p-2 text-slate-600 text-center"
+            className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2"
             type="text"
             placeholder="Enter domain price"
             value={domainPrice}
@@ -85,9 +89,9 @@ const Sale = () => {
           />
           <button
             onClick={() => handleListDomainForSale()}
-            className="bg-zinc-200 rounded-xl text-black font-semibold w-[100px] hover:bg-zinc-300"
+            className="bg-transparent rounded-xl font-semibold w-[120px]  py-1 border-2 border-white hover:outline-none hover:bg-zinc-100 hover:text-black hover:border-black transition duration-200"
           >
-            List for sale
+            {Btn}
           </button>
         </div>
       </div>

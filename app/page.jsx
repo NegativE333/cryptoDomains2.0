@@ -4,6 +4,8 @@
 import { ethers } from 'ethers';
 import CryptoDomains from './abis/CryptoDomains.json';
 import config from './config.json';
+
+//React imports
 import { useEffect, useState } from 'react';
 
 //Component imports
@@ -11,7 +13,6 @@ import Hero from '../components/hero';
 
 export default function Home() {
   const [provider, setProvider] = useState(null)
-  const [account, setAccount] = useState(null)
 
   const [cryptoDomains, setCryptoDomains] = useState(null);
   const [domains, setDomains] = useState([])
@@ -33,19 +34,12 @@ export default function Home() {
     }
 
     setDomains(domains);
-
-    window.ethereum.on('accountsChanged', async () => {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const account = ethers.utils.getAddress(accounts[0])
-      setAccount(account);
-    })
   }
 
   useEffect(() => {
     loadBlockchainData();
   }, []);
 
-  // console.log(domains);
   return (
     <div>
       <Hero 

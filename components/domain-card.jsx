@@ -1,14 +1,15 @@
 "use client";
 
+//Crypto imports
 import { ethers } from "ethers";
+
+//React imports
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
   const [hasSold, setHasSold] = useState(false);
   const [forSale, setForSale] = useState(true);
-  const router = useRouter();
 
   const saleBuyHandler = async () => {
     try {
