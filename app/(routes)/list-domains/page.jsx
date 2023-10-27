@@ -107,16 +107,19 @@ const ListDomains = () => {
           <input
             className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2 mt-2"
             type="text"
+            autoFocus
             placeholder="Enter domain name"
             value={domainName}
             onChange={(e) => setDomainName(e.target.value)}
           />
           <input
             className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2"
-            type="number"
             placeholder="Enter domain price"
             value={domainPrice}
-            onChange={(e) => setDomainPrice(e.target.value)}
+            onInput={(e) => {
+              const numericValue = e.target.value.replace(/[^0-9]/g, '');
+              setDomainPrice(numericValue);
+            }}
           />
           <button
             onClick={() => listDomain()}

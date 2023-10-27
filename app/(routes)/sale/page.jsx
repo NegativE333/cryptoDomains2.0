@@ -62,7 +62,7 @@ const Sale = () => {
       setBtn("List for sale");
     } catch (error) {
       setBtn("List for sale");
-      toast.error("Domain must be owned by you.");
+      toast.error("Ownership required.");
     }
   };
 
@@ -76,6 +76,7 @@ const Sale = () => {
           <input
             className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2 mt-2"
             type="text"
+            autoFocus
             placeholder="Enter domain name"
             value={domainName}
             onChange={(e) => setDomainName(e.target.value)}
@@ -85,7 +86,10 @@ const Sale = () => {
             type="text"
             placeholder="Enter domain price"
             value={domainPrice}
-            onChange={(e) => setDomainPrice(e.target.value)}
+            onInput={(e) => {
+              const numericValue = e.target.value.replace(/[^0-9]/g, '');
+              setDomainPrice(numericValue);
+            }}
           />
           <button
             onClick={() => handleListDomainForSale()}

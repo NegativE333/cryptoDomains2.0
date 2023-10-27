@@ -111,6 +111,7 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
             !isDomainValid(domainName) && "border-red-500"
           }`}
           type="text"
+          autoFocus
           placeholder="Enter domain name"
           value={domainName}
           onChange={(e) => setDomainName(e.target.value)}

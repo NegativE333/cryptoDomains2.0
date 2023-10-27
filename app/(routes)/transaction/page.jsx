@@ -74,7 +74,6 @@ const Transaction = () => {
         setDomainName("");
         setAmountToSend("");
         toast.success("Transaction initiated.");
-        setBtn("Send");
       }
       catch(error){
         toast.error("Transaction failed.");
@@ -84,6 +83,7 @@ const Transaction = () => {
     else{
       toast.error("Invalid domain name.");
     }
+    setBtn("Send");
   }
 
   return (
@@ -97,16 +97,19 @@ const Transaction = () => {
             <input
               className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2 mt-2"
               type="text"
+              autoFocus
               placeholder="Enter receiver domain name"
               value={domainName}
               onChange={(e) => setDomainName(e.target.value)}
             />
             <input
               className="w-[250px] rounded-md h-[45px] text-zinc-100 text-center bg-transparent border-2 mb-2"
-              type="text"
               placeholder="Enter ETH to send"
               value={amountToSend}
-              onChange={(e) => setAmountToSend(e.target.value)}
+              onInput={(e) => {
+                const numericValue = e.target.value.replace(/[^0-9]/g, '');
+                setAmountToSend(numericValue);
+              }}
             />
             <button
               onClick={() => sendTransaction()}
