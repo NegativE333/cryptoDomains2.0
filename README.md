@@ -1,8 +1,32 @@
 # Crypto Domains
 
-![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/a22764e5-cba2-45de-9fbb-a4f109f58d75)
+- Home Page
 
+  ![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/5cd3e17d-a3bd-4a23-a12c-90684ee3cc96)
 
+- Buy Domain page
+
+  ![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/27fc5bba-9fe0-4440-aff9-4c020fe4474c)
+
+- List Domain page ( Only accessible to admin )
+
+  ![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/7e2d1ae0-cbd4-4f52-890b-2e90f9cc95c3)
+
+- Make transaction page
+
+  ![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/6bb09739-4899-4c17-9075-81938821d45c)
+
+- List for sale page
+
+  ![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/5c1fa918-469a-413a-85cc-e902c50e8726)
+
+- Profile page
+
+  ![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/640f97d3-de81-4062-af30-f1f8b9a2c597)
+
+- Mobile responsive
+
+  ![image](https://github.com/NegativE333/cryptoDomains2.0/assets/102456428/f4432983-6e60-438a-afbf-b737e6e6708d)
 
 
 ## About
