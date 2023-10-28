@@ -4,12 +4,13 @@ import { ethers } from "ethers";
 //React imports
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { PiCurrencyInr } from 'react-icons/pi';
 
 const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
   const [domainName, setDomainName] = useState("");
   const [isTaken, setIsTaken] = useState(null);
   const [domainData, setDomainData] = useState([]);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState();
   const [hasSold, setHasSold] = useState(false);
   const [isForSale, setIsForSale] = useState(false);
   const [forSale, setForSale] = useState(true);
@@ -138,7 +139,16 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
                   <span>{domainData.name}</span>
                 )}
               </div>
-              <div className="font-bold text-right w-[30%]">{price} ETH</div>
+              <div className="font-bold text-center w-[40%]">
+                {price} ETH
+                <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
+                  {price && (
+                    <>
+                      Approx. {(parseFloat(price)*148900.04).toFixed(3)} <PiCurrencyInr />
+                    </>
+                  )}
+            </p>
+              </div>
               {domainData.isOwned || hasSold ? (
                 domainData.isForSale && forSale ? (
                   <div

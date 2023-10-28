@@ -6,6 +6,7 @@ import { ethers } from "ethers";
 //React imports
 import { useState } from "react";
 import toast from "react-hot-toast";
+import {PiCurrencyInr} from 'react-icons/pi';
 
 const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
   const [hasSold, setHasSold] = useState(false);
@@ -55,8 +56,11 @@ const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
               <span>{domain.name}</span>
             )}
           </div>
-          <div className="font-bold text-right w-[20%]">
+          <div className="flex flex-col font-bold text-center w-[30%]">
             {ethers.utils.formatUnits(domain.cost.toString(), "ether")} ETH
+            <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
+            Approx. {(ethers.utils.formatUnits(domain.cost.toString(), "ether")*148900.04).toFixed(3)} <PiCurrencyInr />
+            </p>
           </div>
           {domain.isOwned || hasSold ? (
             domain.isForSale && forSale ? (

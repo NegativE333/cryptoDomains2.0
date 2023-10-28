@@ -9,6 +9,7 @@ import config from "../../config.json";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { PiCurrencyInr } from 'react-icons/pi';
 
 const ListDomains = () => {
   const [domainName, setDomainName] = useState("");
@@ -117,10 +118,15 @@ const ListDomains = () => {
             placeholder="Enter domain price"
             value={domainPrice}
             onInput={(e) => {
-              const numericValue = e.target.value.replace(/[^0-9]/g, '');
+              const numericValue = e.target.value.replace(/[^0-9.]/g, '');
               setDomainPrice(numericValue);
             }}
           />
+          {domainPrice*148900.04 === 0 ? null : (
+              <p className="flex items-center justify-center gap-1 mb-1">
+                Approx. {(domainPrice*148900.04).toFixed(3)} <PiCurrencyInr />
+              </p>
+            )}
           <button
             onClick={() => listDomain()}
             className="bg-transparent rounded-xl font-semibold w-[100px]  py-1 border-2 border-white hover:outline-none hover:bg-zinc-100 hover:text-black hover:border-black transition duration-200"

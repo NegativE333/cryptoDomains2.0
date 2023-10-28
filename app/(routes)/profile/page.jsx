@@ -9,6 +9,7 @@ import config from "../../config.json";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { PiCurrencyInr } from "react-icons/pi";
 
 const Profile = () => {
   const [account, setAccount] = useState(null);
@@ -163,8 +164,16 @@ const Profile = () => {
               <div className="font-domain pl-2 font-bold text-[18px] w-[40%]">
                 {domain.name}
               </div>
-              <div className="font-bold text-right w-[20%]">
+              <div className="font-bold text-center w-[30%]">
                 {ethers.utils.formatUnits(domain.cost.toString(), "ether")} ETH
+                <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
+                  Approx.{" "}
+                  {(
+                    ethers.utils.formatUnits(domain.cost.toString(), "ether") *
+                    148900.04
+                  ).toFixed(3)}{" "}
+                  <PiCurrencyInr />
+                </p>
               </div>
               {!domain.isForSale || unListed ? (
                 <div className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover:bg-slate-800 transition cursor-pointer text-white font-domain text-[15px]">
