@@ -32,7 +32,7 @@ const Navbar = () => {
 
     useEffect(() => {
         connection();
-        router.refresh();
+        // window.location.reload();
     }, [account, router]);
 
     return (  

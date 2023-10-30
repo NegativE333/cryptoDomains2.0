@@ -62,6 +62,7 @@ const ListDomains = () => {
       if (isDomainValid(domainName)) {
         const isDomainExists = await cryptoDomains.isDomainListed(domainName);
         if (!isDomainExists) {
+          toast.loading("Opening MataMask...", { duration : 2500 });
           const signer = await provider.getSigner();
           const transaction = await cryptoDomains
             .connect(signer)

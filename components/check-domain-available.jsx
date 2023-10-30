@@ -25,6 +25,7 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
       if (isDomainValid(domainName)) {
         const isDomainExists = await cryptoDomains.isDomainListed(domainName);
         if (!isDomainExists) {
+          toast.loading("Opening MataMask...", { duration : 2500 });
           const signer = await provider.getSigner();
           const transaction = await cryptoDomains
             .connect(signer)
@@ -57,6 +58,7 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
 
   const saleBuyHandler = async () => {
     try {
+      toast.loading("Opening MataMask...", { duration : 2500 });
       const domainId = await cryptoDomains.getDomainIdByName(domainData.name);
       const signer = await provider.getSigner();
       const transaction = await cryptoDomains
@@ -74,6 +76,7 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
 
   const buyHandler = async () => {
     try {
+      toast.loading("Opening MataMask...", { duration : 2500 });
       const domainId = await cryptoDomains.getDomainIdByName(domainName);
       const signer = await provider.getSigner();
       const transaction = await cryptoDomains

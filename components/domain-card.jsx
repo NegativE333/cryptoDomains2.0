@@ -14,6 +14,7 @@ const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
 
   const saleBuyHandler = async () => {
     try {
+      toast.loading("Opening MataMask...", { duration : 2500 });
       const domainId = await cryptoDomains.getDomainIdByName(domain.name);
       const signer = await provider.getSigner();
       const transaction = await cryptoDomains
@@ -31,6 +32,7 @@ const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
 
   const buyHandler = async () => {
     try {
+      toast.loading("Opening MataMask...", { duration : 2500 });
       const domainId = await cryptoDomains.getDomainIdByName(domain.name);
       const signer = await provider.getSigner();
       const transaction = await cryptoDomains

@@ -9,7 +9,8 @@ import config from "../../config.json";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { PiCurrencyInr } from "react-icons/pi";
+import { PiCurrencyInr, PiSpinnerFill } from "react-icons/pi";
+import { ImSpinner9 } from 'react-icons/im';
 
 const Profile = () => {
   const [account, setAccount] = useState(null);
@@ -121,11 +122,17 @@ const Profile = () => {
     router.refresh();
   }, [account]);
 
-  console.log(domainsData);
-
-  if (loading) {
-    return <div>loading</div>;
+  if(!cryptoDomains || !userBalance){
+    return(
+      <div className="w-full h-[100vh] bg-[url('/images/layer4.svg')] bg-no-repeat bg-cover flex flex-col lg:flex-row">
+        <div className='w-full flex items-center justify-center'>
+          <ImSpinner9 className='text-4xl text-white animate-spin transition duration-1000'/>
+        </div>
+      </div>
+    )
   }
+
+  
 
   return (
     <div className="w-full h-[100vh] bg-[url('/images/layer4.svg')] bg-no-repeat bg-cover flex flex-col lg:flex-row">

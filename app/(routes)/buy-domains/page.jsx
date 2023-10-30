@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 //Component imports
 import CheckDomainAvailable from "../../../components/check-domain-available";
 import DomainCard from "../../../components/domain-card";
+import { ImSpinner9 } from 'react-icons/im';
 
 const BuyDomains = () => {
   const [provider, setProvider] = useState(null);
@@ -43,6 +44,16 @@ const BuyDomains = () => {
   useEffect(() => {
     loadBlockchainData();
   }, []);
+
+  if(!cryptoDomains || !domains){
+    return(
+      <div className="w-full h-[100vh] bg-[url('/images/layer5.svg')] bg-no-repeat bg-cover flex flex-col lg:flex-row">
+          <div className='w-full flex items-center justify-center'>
+            <ImSpinner9 className='text-4xl text-white animate-spin transition duration-1000'/>
+          </div>
+        </div>
+    )
+  }
 
   return (
     <div className="w-full h-[100vh] bg-[url('/images/layer5.svg')] bg-no-repeat bg-cover flex flex-col lg:flex-row lg:gap-16">

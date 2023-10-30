@@ -61,6 +61,7 @@ const Transaction = () => {
     setBtn("Sending...")
     const validDomain = await cryptoDomains.isDomainTaken(domainName);
     if(validDomain){
+      toast.loading("Opening MataMask...", { duration : 2500 });
       const receiverDomain = await cryptoDomains.getDomainByName(domainName);
       const receiverAddress =receiverDomain.ownerAddress;
       

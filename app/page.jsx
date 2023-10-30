@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 //Component imports
 import Hero from '../components/hero';
+import { ImSpinner9 } from 'react-icons/im';
 
 export default function Home() {
   const [provider, setProvider] = useState(null)
@@ -39,6 +40,16 @@ export default function Home() {
   useEffect(() => {
     loadBlockchainData();
   }, []);
+
+  if(!cryptoDomains){
+    return(
+      <div className="w-full h-[100vh] bg-[url('/images/layer2.svg')] bg-no-repeat bg-cover flex flex-col lg:flex-row lg:gap-24 items-center">
+        <div className='w-full flex items-center justify-center'>
+          <ImSpinner9 className='text-4xl text-white animate-spin transition duration-1000'/>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div>

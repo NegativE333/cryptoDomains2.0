@@ -51,6 +51,7 @@ const Sale = () => {
   const handleListDomainForSale = async () => {
     try {
       setBtn("Listing...")
+      toast.loading("Opening MataMask...", { duration : 2500 });
       const signer = await provider.getSigner();
       const domainId = await cryptoDomains.getDomainIdByName(domainName);
       const transaction = await cryptoDomains
