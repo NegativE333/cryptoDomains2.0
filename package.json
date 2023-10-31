@@ -25,6 +25,7 @@
     "@typechain/hardhat": "^6.1.4",
     "@types/chai": "^4.3.4",
     "@types/mocha": "^9.1.1",
+    "axios": "^1.6.0",
     "chai": "^4.3.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

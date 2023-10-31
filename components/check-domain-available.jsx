@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { PiCurrencyInr } from 'react-icons/pi';
 
+
+//Const import
+import { fetchEthPriceInInr } from '../const/inrFetcher';
+
 const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
   const [domainName, setDomainName] = useState("");
   const [isTaken, setIsTaken] = useState(null);
@@ -14,6 +18,7 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
   const [hasSold, setHasSold] = useState(false);
   const [isForSale, setIsForSale] = useState(false);
   const [forSale, setForSale] = useState(true);
+  const [ethPriceInInr, setEthPriceInInr] = useState(null);
 
   const tokens = (n) => {
     // eslint-disable-next-line
@@ -104,6 +109,15 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
     }
   }, [domainName]);
 
+  useEffect(() => {
+    async function fetchPrice() {
+      const price = await fetchEthPriceInInr();
+      setEthPriceInInr(price);
+    }
+
+    fetchPrice();
+  }, []);
+
   return (
     <div className="text-white flex flex-col gap-4">
       <h2 className="font-subTitle font-semibold text-3xl text-center">
@@ -144,13 +158,19 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
               </div>
               <div className="font-bold text-center w-[40%]">
                 {price} ETH
-                <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
-                  {price && (
-                    <>
-                      Approx. {(parseFloat(price)*148900.04).toFixed(3)} <PiCurrencyInr />
-                    </>
-                  )}
-            </p>
+                {ethPriceInInr ? (
+                  <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
+                    {price && (
+                      <>
+                        Approx. {(parseFloat(price)*ethPriceInInr).toFixed(3)} <PiCurrencyInr />
+                      </>
+                    )}
+                  </p>
+                ) : (
+                  <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
+                    Loading INR price...
+                  </p>
+                )}
               </div>
               {domainData.isOwned || hasSold ? (
                 domainData.isForSale && forSale ? (

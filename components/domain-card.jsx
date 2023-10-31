@@ -4,13 +4,17 @@
 import { ethers } from "ethers";
 
 //React imports
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import {PiCurrencyInr} from 'react-icons/pi';
+
+//Const import
+import { fetchEthPriceInInr } from '../const/inrFetcher';
 
 const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
   const [hasSold, setHasSold] = useState(false);
   const [forSale, setForSale] = useState(true);
+  const [ethPriceInInr, setEthPriceInInr] = useState(null);
 
   const saleBuyHandler = async () => {
     try {
@@ -47,6 +51,15 @@ const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
     }
   };
 
+  useEffect(() => {
+    async function fetchPrice() {
+      const price = await fetchEthPriceInInr();
+      setEthPriceInInr(price);
+    }
+
+    fetchPrice();
+  }, []);
+
   return (
     <div className="w-full">
       {!domain.isOwned || domain.isForSale ? (
@@ -60,9 +73,16 @@ const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
           </div>
           <div className="flex flex-col font-bold text-center w-[30%]">
             {ethers.utils.formatUnits(domain.cost.toString(), "ether")} ETH
-            <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
-            Approx. {(ethers.utils.formatUnits(domain.cost.toString(), "ether")*148900.04).toFixed(3)} <PiCurrencyInr />
-            </p>
+            {ethPriceInInr ? (
+              <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
+              Approx. {(ethers.utils.formatUnits(domain.cost.toString(), "ether")*ethPriceInInr).toFixed(3)} <PiCurrencyInr />
+              </p>
+
+            ) : (
+              <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
+                Loading INR price...
+              </p>
+            )}
           </div>
           {domain.isOwned || hasSold ? (
             domain.isForSale && forSale ? (

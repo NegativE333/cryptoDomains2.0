@@ -11,10 +11,14 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { PiCurrencyInr } from 'react-icons/pi';
 
+//Const imports
+import { fetchEthPriceInInr } from '../../../const/inrFetcher';
+
 const ListDomains = () => {
   const [domainName, setDomainName] = useState("");
   const [domainPrice, setDomainPrice] = useState("");
   const [Btn, setBtn] = useState("List");
+  const [ethPriceInInr, setEthPriceInInr] = useState(null);
 
   const router = useRouter();
 
@@ -92,12 +96,17 @@ const ListDomains = () => {
 
   useEffect(() => {
     loadBlockchainData();
+    connection();
   }, [account]);
 
   useEffect(() => {
-    connection();
-    router.refresh();
-  }, [account]);
+    async function fetchPrice() {
+      const price = await fetchEthPriceInInr();
+      setEthPriceInInr(price);
+    }
+
+    fetchPrice();
+  }, []);
 
   return (
     <div className="w-full h-[100vh] bg-[url('/images/layer3.svg')] bg-no-repeat bg-cover flex justify-center text-white">
@@ -125,7 +134,7 @@ const ListDomains = () => {
           />
           {domainPrice*148900.04 === 0 ? null : (
               <p className="flex items-center justify-center gap-1 mb-1">
-                Approx. {(domainPrice*148900.04).toFixed(3)} <PiCurrencyInr />
+                Approx. {(domainPrice*ethPriceInInr).toFixed(3)} <PiCurrencyInr />
               </p>
             )}
           <button

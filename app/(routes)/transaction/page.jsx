@@ -1,18 +1,24 @@
 "use client";
 
+//Crypto imports
 import { ethers } from "ethers";
 import CryptoDomains from "../../abis/CryptoDomains.json";
 import config from "../../config.json";
 
+//React imports
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { PiCurrencyInr } from 'react-icons/pi';
 
+//Const imports
+import { fetchEthPriceInInr } from '../../../const/inrFetcher';
+
 const Transaction = () => {
   const [domainName, setDomainName] = useState("");
   const [amountToSend, setAmountToSend] = useState("");
   const [Btn, setBtn] = useState("Send");
+  const [ethPriceInInr, setEthPriceInInr] = useState(null);
 
   const [account, setAccount] = useState(null);
   const router = useRouter();
@@ -50,12 +56,18 @@ const Transaction = () => {
 
   useEffect(() => {
     loadBlockchainData();
-  }, []);
-
-  useEffect(() => {
     connection();
     router.refresh();
   }, [account]);
+
+  useEffect(() => {
+    async function fetchPrice() {
+      const price = await fetchEthPriceInInr();
+      setEthPriceInInr(price);
+    }
+
+    fetchPrice();
+  }, []);
 
   async function sendTransaction() {
     setBtn("Sending...")
@@ -113,9 +125,9 @@ const Transaction = () => {
                 setAmountToSend(numericValue);
               }}
             />
-            {amountToSend*148900.04 === 0 ? null : (
+            {amountToSend*ethPriceInInr === 0 ? null : (
               <p className="flex items-center justify-center gap-1 mb-1">
-                Approx. {(amountToSend*148900.04).toFixed(3)} <PiCurrencyInr />
+                Approx. {(amountToSend*ethPriceInInr).toFixed(3)} <PiCurrencyInr />
               </p>
             )}
             <button

@@ -12,9 +12,13 @@ import toast from "react-hot-toast";
 import { PiCurrencyInr, PiSpinnerFill } from "react-icons/pi";
 import { ImSpinner9 } from 'react-icons/im';
 
+//Const imports
+import { fetchEthPriceInInr } from '../../../const/inrFetcher';
+
 const Profile = () => {
   const [account, setAccount] = useState(null);
   const router = useRouter();
+  const [ethPriceInInr, setEthPriceInInr] = useState(null);
 
   const [greet, setGreet] = useState("");
   var date = new Date();
@@ -122,6 +126,15 @@ const Profile = () => {
     router.refresh();
   }, [account]);
 
+  useEffect(() => {
+    async function fetchPrice() {
+      const price = await fetchEthPriceInInr();
+      setEthPriceInInr(price);
+    }
+
+    fetchPrice();
+  }, []);
+
   if(!cryptoDomains || !userBalance){
     return(
       <div className="w-full h-[100vh] bg-[url('/images/layer4.svg')] bg-no-repeat bg-cover flex flex-col lg:flex-row">
@@ -173,14 +186,20 @@ const Profile = () => {
               </div>
               <div className="font-bold text-center w-[30%]">
                 {ethers.utils.formatUnits(domain.cost.toString(), "ether")} ETH
-                <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
-                  Approx.{" "}
-                  {(
-                    ethers.utils.formatUnits(domain.cost.toString(), "ether") *
-                    148900.04
-                  ).toFixed(3)}{" "}
-                  <PiCurrencyInr />
-                </p>
+                {ethPriceInInr ? (
+                  <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
+                    Approx.{" "}
+                    {(
+                      ethers.utils.formatUnits(domain.cost.toString(), "ether") *
+                      ethPriceInInr
+                    ).toFixed(3)}{" "}
+                    <PiCurrencyInr />
+                  </p>
+                ) : (
+                  <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
+                    Loading INR price...
+                  </p>
+                )}
               </div>
               {!domain.isForSale || unListed ? (
                 <div className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover:bg-slate-800 transition cursor-pointer text-white font-domain text-[15px]">

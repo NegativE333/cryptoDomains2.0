@@ -1,12 +1,18 @@
 "use client";
 
+//Crypto imports
 import { ethers } from "ethers";
 import CryptoDomains from "../../abis/CryptoDomains.json";
 import config from "../../config.json";
 
+//React imports
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { PiCurrencyInr } from 'react-icons/pi';
+
+//Const imports
+import { fetchEthPriceInInr } from '../../../const/inrFetcher';
+
 
 const Sale = () => {
   const [provider, setProvider] = useState(null);
@@ -15,6 +21,7 @@ const Sale = () => {
   const [domainName, setDomainName] = useState("");
   const [domainPrice, setDomainPrice] = useState("");
   const [Btn, setBtn] = useState("List for sale");
+  const [ethPriceInInr, setEthPriceInInr] = useState(null);
 
   const loadBlockchainData = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -40,6 +47,12 @@ const Sale = () => {
   };
 
   useEffect(() => {
+    async function fetchPrice() {
+      const price = await fetchEthPriceInInr();
+      setEthPriceInInr(price);
+    }
+
+    fetchPrice();
     loadBlockchainData();
   }, []);
 
@@ -95,7 +108,7 @@ const Sale = () => {
           />
           {domainPrice*148900.04 === 0 ? null : (
               <p className="flex items-center justify-center gap-1 mb-1">
-                Approx. {(domainPrice*148900.04).toFixed(3)} <PiCurrencyInr />
+                Approx. {(domainPrice*ethPriceInInr).toFixed(3)} <PiCurrencyInr />
               </p>
             )}
           <button
