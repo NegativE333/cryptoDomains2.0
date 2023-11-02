@@ -34,6 +34,7 @@
     "hardhat-gas-reporter": "^1.0.9",
     "lucide-react": "^0.279.0",
     "next": "latest",
+    "nextjs-toploader": "^1.6.4",
     "react": "latest",
     "react-dom": "latest",
     "react-hot-toast": "^2.4.1",

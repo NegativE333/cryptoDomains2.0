@@ -10,6 +10,7 @@ import { LuSendToBack } from "react-icons/lu";
 import { AiOutlineCrown, AiOutlineHome } from "react-icons/ai";
 import { MdPublishedWithChanges, MdOutlineSell } from "react-icons/md";
 import MobileNav from './mobile-nav';
+import Link from 'next/link';
 
 const Navbar = () => {
     const pathName = usePathname();
@@ -43,47 +44,52 @@ const Navbar = () => {
             <div className="hidden lg:flex w-[60%] pt-2">
                 <ul className="flex gap-3 text-zinc-300 font-semibold">
                     <li 
-                        onClick={() => router.push('/')}
                         className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/" && "text-white font-bold")}
                     >
                         <AiOutlineHome />
-                        Home
+                        <Link href="/">
+                            Home
+                        </Link>
                     </li>
                    <span className='text-white font-bold'>|</span> 
                     <li
-                        onClick={() => router.push('/buy-domains')}
                         className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/buy-domains" && "text-white font-bold")}
                     >
                         <AiOutlineCrown />
-                        Buy Domain
+                        <Link href="/buy-domains">
+                            Buy Domain
+                        </Link>
                     </li>
                     {account === '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' && (
                         <div className='flex gap-4'>
                             <span className='text-white font-bold'>|</span>
                             <li
-                                onClick={() => router.push('/list-domains')}
                                 className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/list-domains" && "text-white font-bold")}
                             >
                                 <MdPublishedWithChanges />
-                                List Domain
+                                <Link href="/list-domains">
+                                    List Domain
+                                </Link>
                             </li>
                         </div>
                     )}
                     <span className='text-white font-bold'>|</span>
                     <li
-                        onClick={() => router.push('/transaction')}
                         className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/transaction" && "text-white font-bold")}
                     >
                         <LuSendToBack />
-                        Make transaction
+                        <Link href="/transaction">
+                            Make transaction
+                        </Link>
                     </li>
                     <span className='text-white font-bold'>|</span>
                     <li
-                        onClick={() => router.push('/sale')}
                         className={cn("flex justify-center items-center gap-1 cursor-pointer hover:text-white transition duration-200", pathName==="/sale" && "text-white font-bold")}
                     >
                         <MdOutlineSell />
-                        List for sale
+                        <Link href="/sale">
+                            List for sale
+                        </Link>
                     </li>
                 </ul>
             </div>
@@ -100,10 +106,11 @@ const Navbar = () => {
             <div
                 className="absolute right-8 p-[1px] rounded-full cursor-pointer hover:bg-white transition duration-300"
             >
-                <BiUserCircle  
-                    onClick={() => router.push('/profile')} 
-                    className='text-3xl hidden lg:flex text-white hover:text-black transition duration-300'
-                />
+                <Link href="/profile">
+                    <BiUserCircle   
+                        className='text-3xl hidden lg:flex text-white hover:text-black transition duration-300'
+                    />
+                </Link>
             </div>
                 <div className='absolute lg:hidden right-4'>
                     <MobileNav />

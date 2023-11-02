@@ -14,6 +14,7 @@ import { ImSpinner9 } from 'react-icons/im';
 
 //Const imports
 import { fetchEthPriceInInr } from '../../../const/inrFetcher';
+import Link from "next/link";
 
 const Profile = () => {
   const [account, setAccount] = useState(null);
@@ -167,7 +168,9 @@ const Profile = () => {
               onClick={() => router.push("/buy-domains")}
               className="border-2 w-36 h-12 p-2 rounded-full text-[16px] flex items-center justify-center font-semibold hover:text-black hover:bg-white hover:border-black cursor-pointer transition duration-300"
             >
-              Bye Domain
+              <Link href="/buy-domains">
+                Bye Domain
+              </Link>
             </div>
           </div>
         ) : (
