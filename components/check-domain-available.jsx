@@ -9,8 +9,10 @@ import { PiCurrencyInr } from 'react-icons/pi';
 
 //Const import
 import { fetchEthPriceInInr } from '../const/inrFetcher';
+import { useRouter } from "next/navigation";
 
 const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
+  const router = useRouter();
   const [domainName, setDomainName] = useState("");
   const [isTaken, setIsTaken] = useState(null);
   const [domainData, setDomainData] = useState([]);
@@ -90,7 +92,6 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
       await transaction.wait();
       setHasSold(true);
       toast.success("Domain registered!");
-      window.location.reload();
     } catch (error) {
       toast.error("Something went wrong!");
       console.log(error);
@@ -162,7 +163,7 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
                   <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
                     {price && (
                       <>
-                        Approx. {(parseFloat(price)*ethPriceInInr).toFixed(3)} <PiCurrencyInr />
+                        Approx. {(parseFloat(price)*ethPriceInInr).toLocaleString("en-IN")} <PiCurrencyInr />
                       </>
                     )}
                   </p>
@@ -181,14 +182,14 @@ const CheckDomainAvailable = ({ cryptoDomains, provider }) => {
                     Buy <span className="text-[10px]">Open for sale</span>
                   </div>
                 ) : (
-                  <div className="absolute top-0 bottom-0 right-0 bg-slate-400 w-[20%] flex flex-col items-center justify-center hover:bg-slate-200 transition cursor-not-allowed text-black font-domain text-[15px]">
+                  <div className="absolute top-0 bottom-0 right-0 bg-slate-400 w-[20%] flex flex-col items-center justify-center hover:bg-slate-200 transition cursor-not-allowed text-black font-domain text-[15px] ">
                     Sold
                   </div>
                 )
               ) : (
                 <div
                   onClick={() => buyHandler()}
-                  className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover-bg-slate-800 transition cursor-pointer text-white font-domain text-[15px]"
+                  className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover-bg-slate-800 transition cursor-pointer text-white font-domain text-[15px] hover:bg-slate-700"
                 >
                   Buy it
                 </div>

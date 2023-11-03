@@ -127,7 +127,7 @@ const Transaction = () => {
             />
             {amountToSend*ethPriceInInr === 0 ? null : (
               <p className="flex items-center justify-center gap-1 mb-1">
-                Approx. {(amountToSend*ethPriceInInr).toFixed(3)} <PiCurrencyInr />
+                Approx. {(amountToSend * ethPriceInInr).toLocaleString("en-IN")} <PiCurrencyInr />
               </p>
             )}
             <button

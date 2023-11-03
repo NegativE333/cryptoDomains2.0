@@ -108,7 +108,7 @@ const Sale = () => {
           />
           {domainPrice*148900.04 === 0 ? null : (
               <p className="flex items-center justify-center gap-1 mb-1">
-                Approx. {(domainPrice*ethPriceInInr).toFixed(3)} <PiCurrencyInr />
+                Approx. {(domainPrice*ethPriceInInr).toLocaleString("en-IN")} <PiCurrencyInr />
               </p>
             )}
           <button

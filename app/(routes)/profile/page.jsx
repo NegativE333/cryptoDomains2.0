@@ -192,10 +192,10 @@ const Profile = () => {
                 {ethPriceInInr ? (
                   <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
                     Approx.{" "}
-                    {(
-                      ethers.utils.formatUnits(domain.cost.toString(), "ether") *
-                      ethPriceInInr
-                    ).toFixed(3)}{" "}
+                    {
+                     ( ethers.utils.formatUnits(domain.cost.toString(), "ether") *
+                      ethPriceInInr).toLocaleString("en-IN")
+                    }{" "}
                     <PiCurrencyInr />
                   </p>
                 ) : (

@@ -75,7 +75,7 @@ const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
             {ethers.utils.formatUnits(domain.cost.toString(), "ether")} ETH
             {ethPriceInInr ? (
               <p className="text-[12px] font-light truncate flex items-center justify-center gap-[2px]">
-              Approx. {(ethers.utils.formatUnits(domain.cost.toString(), "ether")*ethPriceInInr).toFixed(3)} <PiCurrencyInr />
+              Approx. {(ethers.utils.formatUnits(domain.cost.toString(), "ether")*ethPriceInInr).toLocaleString("en-IN")} <PiCurrencyInr />
               </p>
 
             ) : (
@@ -102,7 +102,7 @@ const DomainCard = ({ domain, cryptoDomains, provider, id }) => {
           ) : (
             <div
               onClick={() => buyHandler()}
-              className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover-bg-slate-800 transition cursor-pointer text-white font-domain text-[15px]"
+              className="absolute top-0 bottom-0 right-0 bg-slate-600 w-[20%] flex items-center justify-center hover-bg-slate-800 transition cursor-pointer text-white font-domain text-[15px] hover:bg-slate-700"
             >
               Buy it
             </div>
