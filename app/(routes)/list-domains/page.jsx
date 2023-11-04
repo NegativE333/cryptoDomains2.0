@@ -108,45 +108,57 @@ const ListDomains = () => {
     fetchPrice();
   }, []);
 
-  return (
-    <div className="w-full h-[100vh] bg-[url('/images/layer3.svg')] bg-no-repeat bg-cover flex justify-center text-white">
-      <div className=" flex flex-col gap-4 mt-44">
-        <h2 className="font-subTitle font-semibold text-2xl lg:text-3xl text-center">
-          List a domain
-        </h2>
-        <div className="flex flex-col items-center gap-2">
-          <input
-            className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2 mt-2"
-            type="text"
-            autoFocus
-            placeholder="Enter domain name"
-            value={domainName}
-            onChange={(e) => setDomainName(e.target.value)}
-          />
-          <input
-            className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2"
-            placeholder="Enter domain price"
-            value={domainPrice}
-            onInput={(e) => {
-              const numericValue = e.target.value.replace(/[^0-9.]/g, '');
-              setDomainPrice(numericValue);
-            }}
-          />
-          {domainPrice*148900.04 === 0 ? null : (
-              <p className="flex items-center justify-center gap-1 mb-1">
-                Approx. {(domainPrice*ethPriceInInr).toLocaleString("en-IN")} <PiCurrencyInr />
-              </p>
-            )}
-          <button
-            onClick={() => listDomain()}
-            className="bg-transparent rounded-xl font-semibold w-[100px]  py-1 border-2 border-white hover:outline-none hover:bg-zinc-100 hover:text-black hover:border-black transition duration-200"
-          >
-            {Btn}
-          </button>
+  if(account && account !== '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266') router.push('/');
+
+  if(account && account === '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266'){
+    return (
+      <div className="w-full h-[100vh] bg-[url('/images/layer3.svg')] bg-no-repeat bg-cover flex justify-center text-white">
+        <div className=" flex flex-col gap-4 mt-44">
+          <h2 className="font-subTitle font-semibold text-2xl lg:text-3xl text-center">
+            List a domain
+          </h2>
+          <div className="flex flex-col items-center gap-2">
+            <input
+              className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2 mt-2"
+              type="text"
+              autoFocus
+              placeholder="Enter domain name"
+              value={domainName}
+              onChange={(e) => setDomainName(e.target.value)}
+            />
+            <input
+              className="w-[250px] rounded-md h-[45px] text-center text-zinc-100 bg-transparent border-2 mb-2"
+              placeholder="Enter domain price"
+              value={domainPrice}
+              onInput={(e) => {
+                const numericValue = e.target.value.replace(/[^0-9.]/g, '');
+                setDomainPrice(numericValue);
+              }}
+            />
+            {domainPrice*148900.04 === 0 ? null : (
+                <p className="flex items-center justify-center gap-1 mb-1">
+                  Approx. {(domainPrice*ethPriceInInr).toLocaleString("en-IN")} <PiCurrencyInr />
+                </p>
+              )}
+            <button
+              onClick={() => listDomain()}
+              className="bg-transparent rounded-xl font-semibold w-[100px]  py-1 border-2 border-white hover:outline-none hover:bg-zinc-100 hover:text-black hover:border-black transition duration-200"
+            >
+              {Btn}
+            </button>
+          </div>
         </div>
       </div>
+    );
+  }
+
+  return(
+    <div className="w-full h-[100vh] bg-[url('/images/layer3.svg')] bg-no-repeat bg-cover flex justify-center text-white">
+        <p>
+          Not authorized
+        </p>
     </div>
-  );
+  )
 };
 
 export default ListDomains;

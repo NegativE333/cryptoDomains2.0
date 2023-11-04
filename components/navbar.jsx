@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { cn } from '../libs/utils';
 import { ethers } from 'ethers';
 import { BiUserCircle } from 'react-icons/bi';
-import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import { LuSendToBack } from "react-icons/lu";
 import { AiOutlineCrown, AiOutlineHome } from "react-icons/ai";
 import { MdPublishedWithChanges, MdOutlineSell } from "react-icons/md";
@@ -16,7 +15,7 @@ const Navbar = () => {
     const pathName = usePathname();
     const router = useRouter();
 
-    const [account, setAccount] = useState(null)
+    const [account, setAccount] = useState(null);
 
     const connection = async () => {
         const accounts = await window.ethereum.request({
